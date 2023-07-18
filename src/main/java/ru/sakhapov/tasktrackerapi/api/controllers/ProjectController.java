@@ -32,7 +32,7 @@ public class ProjectController {
 
     public static final String CREATE_PROJECT = "/api/projects";
     public static final String DELETE_PROJECT = "/api/projects/{project_id}";
-    public static final String FETCH_PROJECTS = "/api/projects";
+    public static final String GET_PROJECTS = "/api/projects";
     public static final String EDIT_PROJECT = "/api/projects/{project_id}";
 
 
@@ -87,7 +87,7 @@ public class ProjectController {
         return projectDtoFactory.makeProjectDto(project);
     }
 
-    @GetMapping(FETCH_PROJECTS)
+    @GetMapping(GET_PROJECTS)
     public List<ProjectDto> fetchProjects(
             @RequestParam(value = "prefix_name", required = false) Optional<String> optionalPrefixName) {
 
