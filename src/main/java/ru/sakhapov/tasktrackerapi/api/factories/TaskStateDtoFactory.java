@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
-import ru.sakhapov.tasktrackerapi.api.dto.TaskDto;
 import ru.sakhapov.tasktrackerapi.api.dto.TaskStateDto;
 import ru.sakhapov.tasktrackerapi.store.entities.TaskStateEntity;
 
