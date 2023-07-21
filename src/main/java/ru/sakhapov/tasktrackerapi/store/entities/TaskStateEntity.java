@@ -28,7 +28,11 @@ public class TaskStateEntity {
     @Builder.Default
     Instant createdAt = Instant.now();
 
-    Long ordinal;
+    @OneToOne
+    TaskStateEntity leftTaskState;
+
+    @OneToOne
+    TaskStateEntity rightTaskState;
 
     @OneToMany
     @JoinColumn(name = "task_state_id", referencedColumnName = "id")
@@ -37,6 +41,14 @@ public class TaskStateEntity {
 
     @ManyToOne
     ProjectEntity project;
+
+    public Optional<TaskStateEntity> getLeftTaskState(){
+        return Optional.ofNullable(leftTaskState);
+    }
+
+    public Optional<TaskStateEntity> getRightTaskState(){
+        return Optional.ofNullable(rightTaskState);
+    }
 
 
 }

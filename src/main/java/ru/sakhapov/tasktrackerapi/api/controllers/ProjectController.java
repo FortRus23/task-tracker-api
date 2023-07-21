@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import ru.sakhapov.tasktrackerapi.api.controllers.helpers.ControllerHelper;
 import ru.sakhapov.tasktrackerapi.api.dto.AckDto;
-import ru.sakhapov.tasktrackerapi.api.exceptions.NotFoundException;
 import ru.sakhapov.tasktrackerapi.api.dto.ProjectDto;
 import ru.sakhapov.tasktrackerapi.api.exceptions.BadRequestException;
 import ru.sakhapov.tasktrackerapi.api.factories.ProjectDtoFactory;
@@ -30,6 +30,8 @@ public class ProjectController {
 
     ProjectDtoFactory projectDtoFactory;
 
+    ControllerHelper controllerHelper;
+
     public static final String CREATE_PROJECT = "/api/projects";
     public static final String DELETE_PROJECT = "/api/projects/{project_id}";
     public static final String GET_PROJECTS = "/api/projects";
@@ -39,7 +41,7 @@ public class ProjectController {
     @PostMapping(CREATE_PROJECT)
     public ProjectDto createProject(@RequestParam String name) {
 
-        if (name.trim().isEmpty()) {
+        if (name.isBlank()) {
             throw new BadRequestException("Project name can't be empty.");
         }
 
@@ -69,7 +71,7 @@ public class ProjectController {
             throw new BadRequestException("Project name can't be empty.");
         }
 
-        ProjectEntity project = getProjectOrThrowException(projectId);
+        ProjectEntity project = controllerHelper.getProjectOrThrowException(projectId);
 
         projectRepository
                 .findByName(name)
@@ -104,27 +106,12 @@ public class ProjectController {
     @DeleteMapping(DELETE_PROJECT)
     public AckDto deleteProject(@PathVariable("project_id") Long projectId) {
 
-        getProjectOrThrowException(projectId);
+        controllerHelper.getProjectOrThrowException(projectId);
 
         projectRepository.deleteById(projectId);
 
         return AckDto.makeDefault(true);
 
     }
-
-
-
-    private ProjectEntity getProjectOrThrowException(Long projectId) {
-        return projectRepository.
-                findById(projectId)
-                .orElseThrow(() -> new NotFoundException(
-                                String.format(
-                                        "Project with '%s' this id not found.",
-                                        projectId
-                                )
-                        )
-                );
-    }
-
 
 }
