@@ -1,8 +1,10 @@
 ## Используемые технологии
 
 - Spring Boot
+- Spring Boot Starter Data JPA
+- Spring Boot Starter Web
 - PostgreSQL
-- Lombok
+- Project Lombok
 
 ## Как запустить проект
 
