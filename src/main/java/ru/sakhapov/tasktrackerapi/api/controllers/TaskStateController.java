@@ -66,12 +66,6 @@ public class TaskStateController {
             if (taskState.getName().equalsIgnoreCase(taskStateName)) {
                 throw new BadRequestException(String.format("Task state with '%s' name already exists", taskStateName));
             }
-
-            if (!taskState.getRightTaskState().isPresent()) {
-                optionalTaskStateEntity = Optional.of(taskState);
-                break;
-            }
-
         }
 
         TaskStateEntity taskState = taskStateRepository.saveAndFlush(
@@ -83,15 +77,7 @@ public class TaskStateController {
         );
 
         optionalTaskStateEntity
-                .ifPresent(task -> {
-
-                    taskState.setLeftTaskState(task);
-
-                    task.setRightTaskState(taskState);
-
-                    taskStateRepository.saveAndFlush(task);
-
-                });
+                .ifPresent(taskStateRepository::saveAndFlush);
 
         final TaskStateEntity savedTaskState = taskStateRepository.saveAndFlush(taskState);
 
@@ -127,33 +113,9 @@ public class TaskStateController {
 
         TaskStateEntity changeTaskState = getTaskStateOrThrowException(taskStateId);
 
-        replaceOldTaskStatePosition(changeTaskState);
-
         taskStateRepository.delete(changeTaskState);
 
         return AckDto.builder().answer(true).build();
-    }
-
-    private void replaceOldTaskStatePosition(TaskStateEntity changeTaskState) {
-
-        Optional<TaskStateEntity> optionalOldLeftTaskState = changeTaskState.getLeftTaskState();
-        Optional<TaskStateEntity> optionalOldRightTaskState = changeTaskState.getRightTaskState();
-
-        optionalOldLeftTaskState
-                .ifPresent(it -> {
-
-                    it.setRightTaskState(optionalOldRightTaskState.orElse(null));
-
-                    taskStateRepository.saveAndFlush(it);
-                });
-
-        optionalOldRightTaskState
-                .ifPresent(it -> {
-
-                    it.setLeftTaskState(optionalOldLeftTaskState.orElse(null));
-
-                    taskStateRepository.saveAndFlush(it);
-                });
     }
 
     private TaskStateEntity getTaskStateOrThrowException(Long taskStateId) {

@@ -32,7 +32,7 @@ public class ProjectEntity {
     Instant updatedAt = Instant.now();
 
     @Builder.Default
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     List<TaskStateEntity> taskStates = new ArrayList<>();
 }
