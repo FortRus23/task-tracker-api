@@ -44,7 +44,7 @@
    - GET /api/task-states/{task_state_id}/tasks - для получения списка задач
    - POST /api/task-states/{task_state_id}/task - для создания новой задачи (необходимо поле 'task_name', 'task_description')
    - PATCH /api/task/{task_id} - для обновления задачи (необходимо поле 'task_name', 'task_description')
-   - DELETE /api/task/{task_id} - для удаления статуса задачи
+   - DELETE /api/task/{task_id} - для удаления задачи
 
 
 
