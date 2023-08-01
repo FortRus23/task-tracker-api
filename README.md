@@ -1,3 +1,19 @@
-task-tracker-api
+## Используемые технологии
 
-Spring Boot Rest API for task tracker app.
+- Spring Boot
+- PostgreSQL
+- Lombok
+
+## Как запустить проект
+
+1. Установите PostgreSQL и создайте базу данных.
+2. Склонируйте репозиторий.
+3. Откройте проект в IDE.
+4. Установите все зависимости.
+5. Настройте соединение с базой данных в файле application.properties.
+6. Запустите проект.
+
+
+   
+
+
