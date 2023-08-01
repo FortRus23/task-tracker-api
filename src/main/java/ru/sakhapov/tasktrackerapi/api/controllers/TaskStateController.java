@@ -16,7 +16,6 @@ import ru.sakhapov.tasktrackerapi.store.entities.TaskStateEntity;
 import ru.sakhapov.tasktrackerapi.store.repositories.TaskStateRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -59,8 +58,6 @@ public class TaskStateController {
 
         ProjectEntity project = controllerHelper.getProjectOrThrowException(projectId);
 
-        Optional<TaskStateEntity> optionalTaskStateEntity = Optional.empty();
-
         for (TaskStateEntity taskState : project.getTaskStates()) {
 
             if (taskState.getName().equalsIgnoreCase(taskStateName)) {
@@ -75,9 +72,6 @@ public class TaskStateController {
                         .project(project)
                         .build()
         );
-
-        optionalTaskStateEntity
-                .ifPresent(taskStateRepository::saveAndFlush);
 
         final TaskStateEntity savedTaskState = taskStateRepository.saveAndFlush(taskState);
 

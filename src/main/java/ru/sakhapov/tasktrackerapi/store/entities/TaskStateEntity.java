@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE) // experimental
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Builder
 @Table(name = "task_state")
@@ -27,12 +27,11 @@ public class TaskStateEntity {
     @Builder.Default
     Instant createdAt = Instant.now();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "task_state_id", referencedColumnName = "id")
     @Builder.Default
     List<TaskEntity> tasks = new ArrayList<>();
 
     @ManyToOne
     ProjectEntity project;
-
 }

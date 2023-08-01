@@ -11,7 +11,7 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE) // experimental
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Builder
 @Table(name = "task")
@@ -27,4 +27,7 @@ public class TaskEntity {
 
     @Builder.Default
     Instant createdAt = Instant.now();
+
+    @ManyToOne
+    TaskStateEntity taskState;
 }

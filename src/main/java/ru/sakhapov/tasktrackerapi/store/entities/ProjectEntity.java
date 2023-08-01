@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE) // experimental
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Builder
 @Table(name = "project")

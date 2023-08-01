@@ -37,7 +37,6 @@ public class ProjectController {
     public static final String GET_PROJECTS = "/api/projects";
     public static final String EDIT_PROJECT = "/api/projects/{project_id}";
 
-
     @PostMapping(CREATE_PROJECT)
     public ProjectDto createProject(@RequestParam String name) {
 
