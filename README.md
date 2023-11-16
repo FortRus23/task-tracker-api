@@ -5,6 +5,7 @@
 - Spring Boot Starter Web
 - PostgreSQL
 - Project Lombok
+- Maven
 
 ## Описание 
    - Создание новых проектов
